@@ -43,7 +43,8 @@
 # - INSTALL_SBINDIR         (directory with mysqld)
 # - INSTALL_SCRIPTDIR       (several scripts, rarely used)
 #
-# - INSTALL_LIBDIR          (directory with client end embedded libraries)
+# - INSTALL_LIBDIR          (directory with client libraries)
+# - INSTALL_ELIBDIR         (directory with embedded libraries)
 # - INSTALL_PLUGINDIR       (directory for plugins)
 #
 # - INSTALL_INCLUDEDIR      (directory for MySQL headers)
@@ -116,7 +117,7 @@ SET(INSTALL_BINDIR_STANDALONE           "bin")
 SET(INSTALL_SBINDIR_STANDALONE          "bin")
 SET(INSTALL_SCRIPTDIR_STANDALONE        "scripts")
 #
-SET(INSTALL_LIBDIR_STANDALONE           "lib")
+SET(INSTALL_ELIBDIR_STANDALONE          "lib")
 SET(INSTALL_PLUGINDIR_STANDALONE        "lib/plugin")
 #
 SET(INSTALL_INCLUDEDIR_STANDALONE       "include")
@@ -147,10 +148,10 @@ SET(INSTALL_SBINDIR_RPM                 "sbin")
 SET(INSTALL_SCRIPTDIR_RPM               "bin")
 #
 IF(CMAKE_SYSTEM_PROCESSOR MATCHES "x86_64")
-  SET(INSTALL_LIBDIR_RPM                "lib64")
+  SET(INSTALL_ELIBDIR_RPM               "lib64")
   SET(INSTALL_PLUGINDIR_RPM             "lib64/mysql/plugin")
 ELSE()
-  SET(INSTALL_LIBDIR_RPM                "lib")
+  SET(INSTALL_ELIBDIR_RPM               "lib")
   SET(INSTALL_PLUGINDIR_RPM             "lib/mysql/plugin")
 ENDIF()
 #
@@ -177,7 +178,7 @@ SET(INSTALL_BINDIR_DEB                  "bin")
 SET(INSTALL_SBINDIR_DEB                 "bin")
 SET(INSTALL_SCRIPTDIR_DEB               "scripts")
 #
-SET(INSTALL_LIBDIR_DEB                  "lib")
+SET(INSTALL_ELIBDIR_DEB                 "lib")
 SET(INSTALL_PLUGINDIR_DEB               "lib/plugin")
 #
 SET(INSTALL_INCLUDEDIR_DEB              "include")
@@ -203,7 +204,7 @@ SET(INSTALL_BINDIR_SVR4                 "bin")
 SET(INSTALL_SBINDIR_SVR4                "bin")
 SET(INSTALL_SCRIPTDIR_SVR4              "scripts")
 #
-SET(INSTALL_LIBDIR_SVR4                 "lib")
+SET(INSTALL_ELIBDIR_SVR4                "lib")
 SET(INSTALL_PLUGINDIR_SVR4              "lib/plugin")
 #
 SET(INSTALL_INCLUDEDIR_SVR4             "include")
@@ -234,7 +235,7 @@ SET(OLD_INSTALL_LAYOUT ${INSTALL_LAYOUT} CACHE INTERNAL "")
 # Set INSTALL_FOODIR variables for chosen layout (for example, INSTALL_BINDIR
 # will be defined  as ${INSTALL_BINDIR_STANDALONE} by default if STANDALONE
 # layout is chosen)
-FOREACH(var BIN SBIN LIB MYSQLSHARE SHARE PLUGIN INCLUDE SCRIPT DOC MAN
+FOREACH(var BIN SBIN LIB ELIB MYSQLSHARE SHARE PLUGIN INCLUDE SCRIPT DOC MAN
   INFO MYSQLTEST SQLBENCH DOCREADME SUPPORTFILES MYSQLDATA PLUGINTEST)
   SET(INSTALL_${var}DIR  ${INSTALL_${var}DIR_${INSTALL_LAYOUT}}
   CACHE STRING "${var} installation directory" ${FORCE})
